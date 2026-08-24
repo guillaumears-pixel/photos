@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Partagez vos photos</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f7f4f0;color:#222;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}.container{width:100%;max-width:560px}.card{background:#fff;border-radius:24px;padding:30px 22px;text-align:center;box-shadow:0 15px 50px rgba(0,0,0,.1)}.logo{width:100px;height:100px;border-radius:50%;object-fit:cover;margin-bottom:12px}h1{margin:5px 0 10px;font-size:29px}.subtitle{color:#777;line-height:1.5;margin-bottom:22px}.input{width:100%;padding:14px;border:1px solid #ddd;border-radius:12px;font-size:16px;margin-bottom:14px}.upload-box{display:block;border:2px dashed #ddd;border-radius:15px;padding:24px 12px;cursor:pointer}.upload-icon{font-size:38px}.upload-text{font-weight:bold;margin:6px 0}.upload-info{font-size:13px;color:#888}#files{display:none}#preview{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:15px 0}.thumb{position:relative;aspect-ratio:1;border-radius:9px;overflow:hidden;background:#eee}.thumb img{width:100%;height:100%;object-fit:cover}.thumb span{position:absolute;bottom:3px;left:3px;background:rgba(0,0,0,.65);color:#fff;font-size:10px;padding:2px 4px;border-radius:4px}button{width:100%;padding:16px;border:0;border-radius:12px;background:#222;color:#fff;font-size:17px;font-weight:bold;cursor:pointer;margin-top:8px}button:disabled{opacity:.5;cursor:wait}.progress-container{display:none;margin-top:18px}.progress-background{height:9px;background:#eee;border-radius:10px;overflow:hidden}.progress-bar{height:100%;width:0;background:#222;transition:width .2s}.progress-text{font-size:13px;color:#777;margin-top:8px}#status{margin-top:17px;font-weight:bold;line-height:1.4}.success{color:#218838}.error{color:#c82333}.footer{margin-top:18px;color:#999;font-size:12px}
+</style>
+</head>
+<body>
+<div class="container"><div class="card">
+<img src="logo.jpg" class="logo" alt="Logo">
+<h1>Partagez vos photos 📸</h1>
+<div class="subtitle">Envoyez vos souvenirs simplement et rapidement ❤️</div>
+<input id="name" class="input" type="text" placeholder="Votre prénom (facultatif)">
+<label for="files" class="upload-box"><div class="upload-icon">📷</div><div class="upload-text">Sélectionner vos photos</div><div class="upload-info">Les photos sont automatiquement compressées pour accélérer l'envoi</div></label>
+<input id="files" type="file" accept="image/*" multiple>
+<div id="preview"></div>
+<button id="sendBtn" onclick="uploadFiles()">Envoyer mes photos</button>
+<div id="progressContainer" class="progress-container"><div class="progress-background"><div id="progressBar" class="progress-bar"></div></div><div id="progressText" class="progress-text">Préparation...</div></div>
+<div id="status"></div><div class="footer">Vos photos seront enregistrées dans l'album ❤️</div>
+</div></div>
+<script>
+const GOOGLE_SCRIPT_URL="https://script.google.com/macros/s/AKfycbzTKeNze5zdGFvi7g_fCuEaseQm2x0jYzpsUi1rpiQWpO5peuT6pON3tIKCuvYLXwtzdA/exec";
+const MAX_WIDTH=1800, JPEG_QUALITY=.78;
+document.getElementById("files").addEventListener("change",function(){const p=document.getElementById("preview");p.innerHTML="";[...this.files].forEach(f=>{const b=document.createElement("div");b.className="thumb";const i=document.createElement("img");i.src=URL.createObjectURL(f);b.appendChild(i);const s=document.createElement("span");s.textContent=formatSize(f.size);b.appendChild(s);p.appendChild(b)})});
+async function uploadFiles(){
+ const files=[...document.getElementById("files").files],name=document.getElementById("name").value.trim(),button=document.getElementById("sendBtn"),status=document.getElementById("status"),pc=document.getElementById("progressContainer"),bar=document.getElementById("progressBar"),text=document.getElementById("progressText");
+ if(!files.length){status.className="error";status.textContent="Sélectionnez au moins une photo.";return}
+ button.disabled=true;status.className="";status.textContent="";pc.style.display="block";
+ try{for(let i=0;i<files.length;i++){const f=files[i];text.textContent=`Compression de la photo ${i+1} / ${files.length}…`;const c=await compressImage(f);text.textContent=`Envoi de la photo ${i+1} / ${files.length}…`;const b=await blobToBase64(c);await fetch(GOOGLE_SCRIPT_URL,{method:"POST",mode:"no-cors",body:JSON.stringify({fileName:changeExtension(f.name,"jpg"),mimeType:"image/jpeg",data:b,guestName:name})});bar.style.width=Math.round((i+1)/files.length*100)+"%"}status.className="success";status.textContent=`Merci ❤️ ${files.length} photo${files.length>1?"s":""} envoyée${files.length>1?"s":""} !`;document.getElementById("files").value="";document.getElementById("preview").innerHTML="";document.getElementById("name").value=""}catch(e){console.error(e);status.className="error";status.textContent="Une erreur est survenue. Veuillez réessayer."}button.disabled=false
+}
+function compressImage(file){return new Promise((resolve,reject)=>{const img=new Image(),url=URL.createObjectURL(file);img.onload=()=>{let w=img.naturalWidth,h=img.naturalHeight;if(w>MAX_WIDTH){h=Math.round(h*MAX_WIDTH/w);w=MAX_WIDTH}const c=document.createElement("canvas");c.width=w;c.height=h;c.getContext("2d").drawImage(img,0,0,w,h);c.toBlob(b=>{URL.revokeObjectURL(url);b?resolve(b):reject(new Error("Compression impossible"))},"image/jpeg",JPEG_QUALITY)};img.onerror=()=>{URL.revokeObjectURL(url);reject(new Error("Image illisible"))};img.src=url})}
+function blobToBase64(blob){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result.split(",")[1]);r.onerror=reject;r.readAsDataURL(blob)})}
+function changeExtension(n,e){return n.replace(/\.[^/.]+$/,"")+"."+e}function formatSize(b){return b<1048576?Math.round(b/1024)+" Ko":(b/1048576).toFixed(1)+" Mo"}
+</script>
+</body>
+</html>
