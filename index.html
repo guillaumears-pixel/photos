@@ -1,0 +1,1686 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color" content="#f8f4ef">
+
+<title>Guillaume & Coleen</title>
+
+<style>
+
+/* =========================================================
+   BASE
+========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  color: #3d3835;
+
+  font-family: Arial, sans-serif;
+
+  background: #f8f4ef;
+}
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.page {
+  width: 100%;
+  max-width: 680px;
+
+  margin: auto;
+
+  padding: 20px 14px 50px;
+}
+
+
+/* =========================================================
+   CARTE PRINCIPALE
+========================================================= */
+
+.card {
+  background: rgba(255,253,251,.96);
+
+  border: 1px solid #e8ddd3;
+
+  border-radius: 30px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 18px 60px rgba(0,0,0,.12);
+}
+
+
+/* =========================================================
+   HERO / LOGO EN ARRIÈRE-PLAN
+========================================================= */
+
+.hero {
+  position: relative;
+
+  min-height: 390px;
+
+  overflow: hidden;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+}
+
+
+/*
+   PHOTO logo.jpg EN FOND
+*/
+
+.hero-background {
+  position: absolute;
+
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(255,253,251,.48),
+      rgba(255,253,251,.48)
+    ),
+    url("logo.jpg");
+
+  background-size: cover;
+
+  background-position: center;
+
+  background-repeat: no-repeat;
+
+  transform: scale(1.02);
+
+  z-index: 0;
+}
+
+
+/*
+   Léger voile supplémentaire
+   pour garder le texte lisible
+*/
+
+.hero::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(255,255,255,.08),
+      rgba(255,253,251,.18)
+    );
+
+  z-index: 1;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   CONTENU DU HERO
+========================================================= */
+
+.hero-content {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+
+  padding: 35px 15px 25px;
+}
+
+
+/* =========================================================
+   MONOGRAMME
+========================================================= */
+
+.monogram {
+  width: 76px;
+  height: 76px;
+
+  margin: 0 auto 15px;
+
+  border: 1px solid #b9a18d;
+
+  border-radius: 50%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: rgba(255,255,255,.72);
+
+  backdrop-filter: blur(3px);
+
+  color: #8b705c;
+
+  font-family: Georgia, serif;
+
+  font-size: 27px;
+
+  box-shadow:
+    0 2px 15px rgba(0,0,0,.05);
+}
+
+
+/* =========================================================
+   PETIT TITRE
+========================================================= */
+
+.kicker {
+  text-transform: uppercase;
+
+  letter-spacing: 3px;
+
+  font-size: 10px;
+
+  color: #806a5a;
+
+  text-shadow:
+    0 1px 6px rgba(255,255,255,.95);
+}
+
+
+/* =========================================================
+   NOMS
+========================================================= */
+
+.names {
+  font-family: Georgia, serif;
+
+  font-size: 46px;
+
+  font-weight: 500;
+
+  line-height: 1.05;
+
+  margin: 12px 0;
+
+  color: #3d3835;
+
+  text-shadow:
+    0 1px 8px rgba(255,255,255,.9);
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+.date {
+  font-family: Georgia, serif;
+
+  font-size: 23px;
+
+  color: #8b705c;
+
+  margin-top: 12px;
+
+  text-shadow:
+    0 1px 7px rgba(255,255,255,.95);
+}
+
+
+/* =========================================================
+   SÉPARATION
+========================================================= */
+
+.divider {
+  width: 55px;
+
+  height: 1px;
+
+  background: #a9907c;
+
+  margin: 22px auto;
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.message {
+  font-size: 14px;
+
+  line-height: 1.7;
+
+  color: #554b45;
+
+  text-shadow:
+    0 1px 6px rgba(255,255,255,.95);
+}
+
+
+/* =========================================================
+   ZONE FORMULAIRE
+========================================================= */
+
+.form-area {
+  padding: 0 20px 20px;
+}
+
+
+/* =========================================================
+   NOM INVITÉ
+========================================================= */
+
+.name {
+  width: 100%;
+
+  padding: 14px;
+
+  border: 1px solid #ddd;
+
+  border-radius: 12px;
+
+  font-size: 14px;
+
+  margin-bottom: 12px;
+
+  outline: none;
+
+  background: white;
+}
+
+.name:focus {
+  border-color: #b9a18d;
+}
+
+
+/* =========================================================
+   ZONE UPLOAD
+========================================================= */
+
+.upload {
+  display: block;
+
+  border: 1.5px dashed #c8b8a9;
+
+  border-radius: 20px;
+
+  padding: 22px 12px;
+
+  cursor: pointer;
+
+  background: #fffaf6;
+
+  text-align: center;
+
+  transition: .2s;
+}
+
+.upload:hover {
+  background: #fdf3eb;
+
+  border-color: #9a806c;
+}
+
+.upload-icon {
+  font-size: 32px;
+}
+
+.upload b {
+  display: block;
+
+  margin: 8px 0;
+}
+
+.upload small {
+  color: #91867f;
+}
+
+.files {
+  display: none;
+}
+
+
+/* =========================================================
+   COMPTEUR
+========================================================= */
+
+#count {
+  font-size: 12px;
+
+  color: #8a7c72;
+
+  margin: 12px;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   APERÇU
+========================================================= */
+
+#preview {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 7px;
+
+  margin: 12px 0 18px;
+}
+
+.thumb {
+  position: relative;
+
+  aspect-ratio: 1;
+
+  overflow: hidden;
+
+  border-radius: 10px;
+
+  background: #eee;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.thumb-size {
+  position: absolute;
+
+  left: 4px;
+  bottom: 4px;
+
+  padding: 3px 5px;
+
+  background: rgba(0,0,0,.65);
+
+  color: white;
+
+  font-size: 9px;
+
+  border-radius: 4px;
+}
+
+
+/* =========================================================
+   BOUTON ENVOI
+========================================================= */
+
+.send-button {
+  width: 100%;
+
+  padding: 16px;
+
+  border: 0;
+
+  border-radius: 15px;
+
+  background: #4c433d;
+
+  color: white;
+
+  font-size: 13px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: .2s;
+}
+
+.send-button:hover {
+  background: #62574f;
+}
+
+.send-button:disabled {
+  opacity: .5;
+
+  cursor: wait;
+}
+
+
+/* =========================================================
+   PROGRESSION
+========================================================= */
+
+.progress {
+  display: none;
+
+  margin-top: 18px;
+}
+
+.track {
+  width: 100%;
+
+  height: 7px;
+
+  background: #eee7e1;
+
+  border-radius: 10px;
+
+  overflow: hidden;
+}
+
+.bar {
+  width: 0%;
+
+  height: 100%;
+
+  background: #9a806c;
+
+  transition: width .2s;
+}
+
+.progress-text {
+  font-size: 11px;
+
+  color: #8a7d74;
+
+  margin-top: 8px;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   MESSAGE STATUT
+========================================================= */
+
+#status {
+  margin-top: 17px;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+
+  text-align: center;
+}
+
+.ok {
+  color: #657a61;
+}
+
+.error {
+  color: #a35d57;
+}
+
+
+/* =========================================================
+   ALBUM
+========================================================= */
+
+.album-section {
+  margin-top: 20px;
+
+  padding:
+    30px 20px
+    10px;
+
+  border-top: 1px solid #e8ddd3;
+}
+
+.album-title {
+  font-family: Georgia, serif;
+
+  font-size: 31px;
+
+  font-weight: 500;
+
+  text-align: center;
+
+  margin: 0 0 8px;
+}
+
+.album-subtitle {
+  font-size: 12px;
+
+  color: #8a7d74;
+
+  text-align: center;
+
+  margin: 0 0 20px;
+}
+
+
+/* =========================================================
+   GALERIE
+========================================================= */
+
+.gallery {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 5px;
+}
+
+.gallery-photo {
+  position: relative;
+
+  width: 100%;
+
+  aspect-ratio: 1 / 1;
+
+  overflow: hidden;
+
+  border-radius: 8px;
+
+  background: #eee;
+
+  cursor: pointer;
+}
+
+.gallery-photo img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition: transform .25s;
+}
+
+.gallery-photo:hover img {
+  transform: scale(1.04);
+}
+
+.gallery-message {
+  grid-column: 1 / -1;
+
+  padding: 25px 10px;
+
+  color: #8a7d74;
+
+  font-size: 12px;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+  padding:
+    15px 20px
+    30px;
+
+  font-family: Georgia, serif;
+
+  font-size: 17px;
+
+  color: #9a806c;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   LIGHTBOX
+========================================================= */
+
+.lightbox {
+  display: none;
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  background: rgba(0,0,0,.95);
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 20px;
+}
+
+.lightbox.active {
+  display: flex;
+}
+
+.lightbox-image {
+  max-width: 94vw;
+
+  max-height: 92vh;
+
+  object-fit: contain;
+
+  user-select: none;
+}
+
+.close-lightbox {
+  position: fixed;
+
+  top: 10px;
+
+  right: 18px;
+
+  z-index: 10001;
+
+  color: white;
+
+  font-size: 38px;
+
+  font-weight: 300;
+
+  cursor: pointer;
+
+  line-height: 1;
+}
+
+.gallery-prev,
+.gallery-next {
+  position: fixed;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  z-index: 10001;
+
+  color: white;
+
+  font-size: 48px;
+
+  cursor: pointer;
+
+  padding: 20px;
+
+  user-select: none;
+}
+
+.gallery-prev {
+  left: 0;
+}
+
+.gallery-next {
+  right: 0;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 500px) {
+
+  .page {
+    padding:
+      10px 7px 35px;
+  }
+
+  .hero {
+    min-height: 360px;
+  }
+
+  .hero-content {
+    padding:
+      30px 10px 20px;
+  }
+
+  .names {
+    font-size: 39px;
+  }
+
+  .date {
+    font-size: 21px;
+  }
+
+  .form-area {
+    padding:
+      0 15px 15px;
+  }
+
+  .album-section {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .gallery {
+    grid-template-columns:
+      repeat(3, 1fr);
+
+    gap: 4px;
+  }
+
+  .gallery-prev,
+  .gallery-next {
+    font-size: 36px;
+
+    padding: 12px;
+  }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="page">
+
+<main class="card">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+  <div class="hero-background"></div>
+
+  <div class="hero-content">
+
+    <div class="monogram">
+      G & C
+    </div>
+
+    <div class="kicker">
+    </div>
+
+    <div class="names">
+      Guillaume & Coleen
+    </div>
+
+    <div class="date">
+      28 août 2027
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="message">
+      Vous avez capturé un joli moment ?
+      <br>
+      Partagez vos photos avec nous et participez à nos souvenirs. ❤️
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     FORMULAIRE
+===================================================== -->
+
+<section class="form-area">
+
+
+<input
+  id="name"
+  class="name"
+  type="text"
+  placeholder="Votre prénom (facultatif)"
+>
+
+
+<label
+  class="upload"
+  for="files"
+>
+
+  <div class="upload-icon">
+    📷
+  </div>
+
+  <b>
+    Ajouter mes photos
+  </b>
+
+  <small>
+    Une ou plusieurs photos • qualité originale
+  </small>
+
+</label>
+
+
+<input
+  id="files"
+  class="files"
+  type="file"
+  accept="image/*"
+  multiple
+>
+
+
+<div id="count"></div>
+
+
+<div id="preview"></div>
+
+
+<button
+  id="send"
+  class="send-button"
+>
+  ❤️ ENVOYER MES SOUVENIRS
+</button>
+
+
+<div
+  id="progress"
+  class="progress"
+>
+
+  <div class="track">
+
+    <div
+      id="bar"
+      class="bar"
+    ></div>
+
+  </div>
+
+  <div
+    id="progressText"
+    class="progress-text"
+  ></div>
+
+</div>
+
+
+<div id="status"></div>
+
+</section>
+
+
+<!-- =====================================================
+     GALERIE
+===================================================== -->
+
+<section class="album-section">
+
+  <h2 class="album-title">
+    Nos souvenirs
+  </h2>
+
+  <p class="album-subtitle">
+    Les photos partagées par nos invités ❤️
+  </p>
+
+  <div
+    id="gallery"
+    class="gallery"
+  >
+
+    <div class="gallery-message">
+      Chargement des photos…
+    </div>
+
+  </div>
+
+</section>
+
+
+<div class="footer">
+  Merci de faire partie de cette belle journée ❤️
+</div>
+
+
+</main>
+
+</div>
+
+
+<!-- =====================================================
+     LIGHTBOX
+===================================================== -->
+
+<div
+  id="lightbox"
+  class="lightbox"
+>
+
+  <div
+    id="closeLightbox"
+    class="close-lightbox"
+  >
+    ×
+  </div>
+
+  <div
+    id="galleryPrev"
+    class="gallery-prev"
+  >
+    ‹
+  </div>
+
+  <img
+    id="lightboxImage"
+    class="lightbox-image"
+    src=""
+    alt=""
+  >
+
+  <div
+    id="galleryNext"
+    class="gallery-next"
+  >
+    ›
+  </div>
+
+</div>
+
+
+<script>
+
+
+/* =========================================================
+   GOOGLE APPS SCRIPT
+========================================================= */
+
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbzTKeNze5zdGFvi7g_fCuEaseQm2x0jYzpsUi1rpiQWpO5peuT6pON3tIKCuvYLXwtzdA/exec";
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+const fileInput =
+  document.getElementById("files");
+
+const preview =
+  document.getElementById("preview");
+
+const gallery =
+  document.getElementById("gallery");
+
+let galleryPhotos = [];
+
+let currentPhotoIndex = 0;
+
+
+/* =========================================================
+   APERÇU DES PHOTOS
+========================================================= */
+
+fileInput.addEventListener(
+  "change",
+  function() {
+
+    const files =
+      Array.from(fileInput.files);
+
+    const count =
+      document.getElementById("count");
+
+    preview.innerHTML = "";
+
+    if (!files.length) {
+
+      count.textContent = "";
+
+      return;
+    }
+
+    count.textContent =
+      files.length +
+      " photo" +
+      (files.length > 1 ? "s" : "") +
+      " sélectionnée" +
+      (files.length > 1 ? "s" : "");
+
+    files.forEach(function(file) {
+
+      const box =
+        document.createElement("div");
+
+      box.className =
+        "thumb";
+
+      const image =
+        document.createElement("img");
+
+      image.src =
+        URL.createObjectURL(file);
+
+      box.appendChild(image);
+
+      const size =
+        document.createElement("div");
+
+      size.className =
+        "thumb-size";
+
+      size.textContent =
+        formatFileSize(file.size);
+
+      box.appendChild(size);
+
+      preview.appendChild(box);
+
+    });
+
+  }
+);
+
+
+/* =========================================================
+   ENVOI
+========================================================= */
+
+document
+  .getElementById("send")
+  .addEventListener(
+    "click",
+    sendPhotos
+  );
+
+
+async function sendPhotos() {
+
+  const files =
+    Array.from(fileInput.files);
+
+  const guestName =
+    document
+      .getElementById("name")
+      .value
+      .trim();
+
+  const button =
+    document.getElementById("send");
+
+  const status =
+    document.getElementById("status");
+
+  const progress =
+    document.getElementById("progress");
+
+  const bar =
+    document.getElementById("bar");
+
+  const progressText =
+    document.getElementById("progressText");
+
+
+  if (!files.length) {
+
+    status.className = "error";
+
+    status.textContent =
+      "Choisissez au moins une photo ❤️";
+
+    return;
+  }
+
+
+  button.disabled = true;
+
+  progress.style.display = "block";
+
+  status.textContent = "";
+
+
+  try {
+
+    for (
+      let i = 0;
+      i < files.length;
+      i++
+    ) {
+
+      const file = files[i];
+
+
+      progressText.textContent =
+        "Préparation de la photo " +
+        (i + 1) +
+        " / " +
+        files.length +
+        "…";
+
+
+      /*
+       * IMPORTANT :
+       * aucune compression.
+       * le fichier original est lu.
+       */
+
+      const base64 =
+        await fileToBase64(file);
+
+
+      progressText.textContent =
+        "Envoi de la photo " +
+        (i + 1) +
+        " / " +
+        files.length +
+        "…";
+
+
+      await fetch(
+        SCRIPT_URL,
+        {
+          method: "POST",
+
+          mode: "no-cors",
+
+          body: JSON.stringify({
+
+            fileName:
+              file.name,
+
+            mimeType:
+              file.type ||
+              "application/octet-stream",
+
+            data:
+              base64,
+
+            guestName:
+              guestName
+
+          })
+        }
+      );
+
+
+      const percentage =
+        Math.round(
+          (
+            (i + 1) /
+            files.length
+          ) * 100
+        );
+
+
+      bar.style.width =
+        percentage + "%";
+    }
+
+
+    status.className = "ok";
+
+    status.innerHTML =
+      "<b>Merci ❤️</b><br>" +
+      "Vos photos ont bien été ajoutées aux souvenirs de Guillaume & Coleen.";
+
+
+    fileInput.value = "";
+
+    preview.innerHTML = "";
+
+    document
+      .getElementById("count")
+      .textContent = "";
+
+    document
+      .getElementById("name")
+      .value = "";
+
+
+    setTimeout(
+      loadGallery,
+      2000
+    );
+
+
+  } catch(error) {
+
+    console.error(error);
+
+    status.className = "error";
+
+    status.textContent =
+      "Une erreur est survenue pendant l'envoi. Veuillez réessayer.";
+
+  }
+
+
+  button.disabled = false;
+}
+
+
+/* =========================================================
+   FICHIER → BASE64
+========================================================= */
+
+function fileToBase64(file) {
+
+  return new Promise(
+    function(resolve, reject) {
+
+      const reader =
+        new FileReader();
+
+      reader.onload =
+        function() {
+
+          const result =
+            reader.result;
+
+          const base64 =
+            result.split(",")[1];
+
+          resolve(base64);
+
+        };
+
+      reader.onerror =
+        function() {
+
+          reject(reader.error);
+
+        };
+
+      reader.readAsDataURL(file);
+
+    }
+  );
+}
+
+
+/* =========================================================
+   CHARGER LA GALERIE
+========================================================= */
+
+async function loadGallery() {
+
+  gallery.innerHTML =
+    '<div class="gallery-message">' +
+    'Chargement des photos…' +
+    '</div>';
+
+
+  try {
+
+    const response =
+      await fetch(
+        SCRIPT_URL +
+        "?action=photos&_=" +
+        Date.now(),
+        {
+          cache: "no-store"
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (!data.success) {
+
+      throw new Error(
+        data.error ||
+        "Impossible de récupérer les photos."
+      );
+    }
+
+
+    galleryPhotos =
+      data.photos || [];
+
+
+    displayGallery();
+
+
+  } catch(error) {
+
+    console.error(error);
+
+    gallery.innerHTML =
+      '<div class="gallery-message">' +
+      "Impossible de charger l'album pour le moment." +
+      "<br><br>" +
+      "Réessayez dans quelques instants." +
+      '</div>';
+
+  }
+}
+
+
+/* =========================================================
+   AFFICHER GALERIE
+========================================================= */
+
+function displayGallery() {
+
+  gallery.innerHTML = "";
+
+
+  if (!galleryPhotos.length) {
+
+    gallery.innerHTML =
+      '<div class="gallery-message">' +
+      "Les premières photos apparaîtront ici ❤️" +
+      '</div>';
+
+    return;
+  }
+
+
+  galleryPhotos.forEach(
+    function(photo, index) {
+
+      const container =
+        document.createElement("div");
+
+      container.className =
+        "gallery-photo";
+
+
+      const image =
+        document.createElement("img");
+
+      image.src =
+        photo.url;
+
+      image.alt = "";
+
+      image.loading =
+        "lazy";
+
+
+      container.appendChild(image);
+
+
+      container.addEventListener(
+        "click",
+        function() {
+
+          openPhoto(index);
+
+        }
+      );
+
+
+      gallery.appendChild(container);
+
+    }
+  );
+}
+
+
+/* =========================================================
+   OUVRIR PHOTO
+========================================================= */
+
+function openPhoto(index) {
+
+  if (!galleryPhotos.length) {
+    return;
+  }
+
+  currentPhotoIndex =
+    index;
+
+  updateLightbox();
+
+  document
+    .getElementById("lightbox")
+    .classList
+    .add("active");
+
+  document.body.style.overflow =
+    "hidden";
+}
+
+
+/* =========================================================
+   PHOTO GRAND FORMAT
+========================================================= */
+
+function updateLightbox() {
+
+  const image =
+    document.getElementById(
+      "lightboxImage"
+    );
+
+
+  image.src =
+    galleryPhotos[
+      currentPhotoIndex
+    ].url;
+}
+
+
+/* =========================================================
+   FERMER PHOTO
+========================================================= */
+
+function closeLightbox() {
+
+  document
+    .getElementById("lightbox")
+    .classList
+    .remove("active");
+
+  document.body.style.overflow =
+    "";
+}
+
+
+/* =========================================================
+   SUIVANTE
+========================================================= */
+
+function nextPhoto() {
+
+  if (!galleryPhotos.length) {
+    return;
+  }
+
+  currentPhotoIndex =
+    (
+      currentPhotoIndex + 1
+    ) %
+    galleryPhotos.length;
+
+  updateLightbox();
+}
+
+
+/* =========================================================
+   PRÉCÉDENTE
+========================================================= */
+
+function previousPhoto() {
+
+  if (!galleryPhotos.length) {
+    return;
+  }
+
+  currentPhotoIndex =
+    (
+      currentPhotoIndex -
+      1 +
+      galleryPhotos.length
+    ) %
+    galleryPhotos.length;
+
+  updateLightbox();
+}
+
+
+/* =========================================================
+   BOUTONS
+========================================================= */
+
+document
+  .getElementById("galleryNext")
+  .addEventListener(
+    "click",
+    function(event) {
+
+      event.stopPropagation();
+
+      nextPhoto();
+
+    }
+  );
+
+
+document
+  .getElementById("galleryPrev")
+  .addEventListener(
+    "click",
+    function(event) {
+
+      event.stopPropagation();
+
+      previousPhoto();
+
+    }
+  );
+
+
+document
+  .getElementById("closeLightbox")
+  .addEventListener(
+    "click",
+    function(event) {
+
+      event.stopPropagation();
+
+      closeLightbox();
+
+    }
+  );
+
+
+/* =========================================================
+   CLIC SUR LE FOND
+========================================================= */
+
+document
+  .getElementById("lightbox")
+  .addEventListener(
+    "click",
+    function(event) {
+
+      if (
+        event.target.id ===
+        "lightbox"
+      ) {
+
+        closeLightbox();
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   CLAVIER
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    const lightbox =
+      document.getElementById(
+        "lightbox"
+      );
+
+
+    if (
+      !lightbox.classList.contains(
+        "active"
+      )
+    ) {
+
+      return;
+    }
+
+
+    if (event.key === "Escape") {
+      closeLightbox();
+    }
+
+
+    if (event.key === "ArrowRight") {
+      nextPhoto();
+    }
+
+
+    if (event.key === "ArrowLeft") {
+      previousPhoto();
+    }
+
+  }
+);
+
+
+/* =========================================================
+   TAILLE FICHIER
+========================================================= */
+
+function formatFileSize(bytes) {
+
+  if (
+    bytes <
+    1024 * 1024
+  ) {
+
+    return (
+      Math.round(
+        bytes / 1024
+      ) +
+      " Ko"
+    );
+  }
+
+
+  return (
+    (
+      bytes /
+      1024 /
+      1024
+    ).toFixed(1) +
+    " Mo"
+  );
+}
+
+
+/* =========================================================
+   DÉMARRAGE
+========================================================= */
+
+loadGallery();
+
+</script>
+
+</body>
+</html>
